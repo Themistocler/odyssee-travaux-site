@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+import { E, villes, mailDevis } from '../data/entreprise.js';
+
+const { title, description, image = '/img/icone.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ici = Astro.url.pathname;
+const nav = [
+  ['/#prestations', 'Prestations'],
+  ['/chantiers/', 'Chantiers'],
+  ['/professionnels/', 'Professionnels'],
+  ['#contact', 'Contact'],
+];
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'RoofingContractor',
+  name: E.nom,
+  url: Astro.site.href,
+  logo: new URL('/img/icone.png', Astro.site).href,
+  email: E.email,
+  telephone: E.telHref,
+  address: { '@type': 'PostalAddress', streetAddress: E.rue, postalCode: E.cp, addressLocality: E.ville, addressCountry: 'FR' },
+  areaServed: villes,
+  openingHours: 'Mo-Fr 08:00-18:00',
+  vatID: E.tva.replaceAll(' ', ''),
+  foundingDate: '2022',
+  memberOf: { '@type': 'Organization', name: 'CAPEB Nord' },
+  sameAs: [E.instagram],
+};
+---
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<link rel="icon" href="/img/icone.png">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={new URL(image, Astro.site)}>
+<meta property="og:locale" content="fr_FR">
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
+<slot name="head" />
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/img/logo.png" alt="Odyssée Travaux, accueil" width="158" height="48"></a>
+    <nav aria-label="Menu principal">
+      {nav.map(([href, label]) => <a href={href} aria-current={ici === href ? 'page' : undefined}>{label}</a>)}
+    </nav>
+    <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler</a>
+  </div>
+</header>
+
+<main><slot /></main>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Un problème de toiture ?</h2>
+    <p>Appelez {E.horaires.toLowerCase()}. Ou envoyez votre ville, le type de travaux et une ou deux photos : je vous réponds pour fixer une visite.</p>
+    <div class="ctas">
+      <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
+      <a class="btn btn-ligne" href={`sms:${E.telHref}`}>Envoyer une photo par SMS</a>
+      <a class="btn btn-ligne" href={mailDevis}>Écrire un e-mail</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>{E.nom}</strong>, {E.forme}, {E.rue}, {E.cp} {E.ville}. {E.rcs}, SIRET {E.siret}.</p>
+    <p>Assurance décennale {E.decennale} : couverture, zinguerie, châssis de toit, isolation. Adhérent CAPEB Nord.</p>
+    <p><a href="/mentions-legales/">Mentions légales et données personnelles</a> · <a href={`mailto:${E.email}`}>{E.email}</a> · <a href={E.instagram}>Instagram</a></p>
+  </div>
+</footer>
+</body>
+</html>

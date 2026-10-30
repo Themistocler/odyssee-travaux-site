@@ -1,0 +1,41 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { chantiersPublies } from '../../data/chantiers.js';
+import { prestations } from '../../data/entreprise.js';
+
+export async function getStaticPaths() {
+  const liste = await chantiersPublies();
+  return liste.map((c) => ({ params: { id: c.id }, props: { c } }));
+}
+
+const { c } = Astro.props;
+const { Content } = await render(c);
+const p = prestations.find((x) => x.slug === c.data.prestation);
+const moments = { avant: 'Avant', pendant: 'Pendant', apres: 'Après' };
+const date = c.data.date.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+---
+<Base title={`${c.data.titre} à ${c.data.ville} | Odyssée Travaux`} description={c.data.resume} image={c.data.photos[0]?.src.src}>
+  <div class="bandeau">
+    <div class="wrap">
+      <p class="fil"><a href="/">Accueil</a> › <a href="/chantiers/">Chantiers</a></p>
+      <h1>{c.data.titre} à {c.data.ville}</h1>
+      <p>{c.data.resume}</p>
+      <p class="fil">{date} · <a href={`/${p.slug}/`}>{p.titre}</a></p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <div class="galerie">
+        {c.data.photos.map((ph) => (
+          <figure>
+            <Image src={ph.src} alt={ph.legende} widths={[480, 960, 1440]} sizes="(max-width: 700px) 100vw, 520px" />
+            <figcaption>{ph.moment && <span class="moment">{moments[ph.moment]}</span>}{ph.legende}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="prose"><Content /></div>
+    </div>
+  </section>
+</Base>

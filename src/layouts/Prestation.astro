@@ -1,0 +1,48 @@
+---
+import Base from './Base.astro';
+import Chantiers from '../components/Chantiers.astro';
+import { chantiersPublies } from '../data/chantiers.js';
+import { E, prestations, mailDevis } from '../data/entreprise.js';
+
+const { frontmatter: f } = Astro.props;
+const slug = Astro.url.pathname.replaceAll('/', '');
+const lies = await chantiersPublies((c) => c.data.prestation === slug);
+const autres = prestations.filter((p) => p.slug !== slug);
+---
+<Base title={f.title} description={f.description}>
+  <div class="bandeau">
+    <div class="wrap">
+      <p class="fil"><a href="/">Accueil</a> › <a href="/#prestations">Prestations</a></p>
+      <h1>{f.h1}</h1>
+      <p>{f.intro}</p>
+      <div class="ctas">
+        <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
+        <a class="btn btn-ligne" href={mailDevis}>Demander un devis gratuit</a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap prose"><slot /></div>
+  </section>
+
+  {lies.length > 0 && (
+    <section class="apropos">
+      <div class="wrap">
+        <h2>Chantiers réalisés</h2>
+        <Chantiers liste={lies.slice(0, 6)} />
+      </div>
+    </section>
+  )}
+
+  <section>
+    <div class="wrap">
+      <h2>Autres prestations</h2>
+      <div class="grille">
+        {autres.map((p) => (
+          <a class="carte" href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p><span class="suite">En savoir plus →</span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

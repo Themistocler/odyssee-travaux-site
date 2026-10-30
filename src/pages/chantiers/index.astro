@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Chantiers from '../../components/Chantiers.astro';
+import { chantiersPublies } from '../../data/chantiers.js';
+import { E } from '../../data/entreprise.js';
+
+const liste = await chantiersPublies();
+---
+<Base
+  title="Chantiers de toiture et zinguerie | Odyssée Travaux"
+  description="Chantiers réalisés par Odyssée Travaux à Roubaix, Wasquehal et dans la métropole lilloise : fuites, gouttières et chéneaux en zinc, Velux, couvertures. Photos.">
+  <div class="bandeau">
+    <div class="wrap">
+      <p class="fil"><a href="/">Accueil</a></p>
+      <h1>Chantiers réalisés</h1>
+      <p>Des chantiers récents, en photos, avant et après. Les adresses ne sont jamais publiées, seulement la ville.</p>
+    </div>
+  </div>
+  <section>
+    <div class="wrap">
+      <Chantiers liste={liste} />
+      <p>Plus de photos sur Instagram : <a href={E.instagram}>{E.instagramNom}</a></p>
+    </div>
+  </section>
+</Base>

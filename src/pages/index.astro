@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Chantiers from '../components/Chantiers.astro';
+import { chantiersPublies } from '../data/chantiers.js';
+import { E, villes, prestations, mailDevis } from '../data/entreprise.js';
+
+const recents = (await chantiersPublies()).slice(0, 6);
+---
+<Base
+  title="Couvreur zingueur à Roubaix et Wasquehal | Odyssée Travaux"
+  description="Couvreur-zingueur à Wasquehal, Roubaix et dans la métropole lilloise : fuite de toiture, gouttières et zinc, Velux, couverture. Décennale, devis gratuit.">
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Couvreur-zingueur à Roubaix, Wasquehal et dans la métropole lilloise</h1>
+    <p>Fuite, gouttière, Velux ou toiture à refaire : un artisan formé sur les Monuments Historiques vient voir votre toit et vous remet un devis gratuit, écrit et détaillé.</p>
+    <div class="ctas">
+      <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
+      <a class="btn btn-ligne" href={mailDevis}>Demander un devis</a>
+    </div>
+    <p class="horaires">{E.horaires}. Envoyez une photo du problème, c'est souvent le plus rapide.</p>
+  </div>
+</section>
+
+<div class="preuves">
+  <div class="wrap">
+    <ul>
+      <li>Garantie décennale<small>{E.decennale}</small></li>
+      <li>Adhérent CAPEB Nord<small>Médiateur de la consommation de la CAPEB</small></li>
+      <li>Prix fixes par intervention<small>Le même prix d'un client à l'autre</small></li>
+      <li>Devis gratuit<small>Écrit, détaillé, valable 30 jours</small></li>
+    </ul>
+  </div>
+</div>
+
+<section id="prestations">
+  <div class="wrap">
+    <h2>Ce que je fais pour vous</h2>
+    <div class="grille">
+      {prestations.map((p) => (
+        <a class="carte" href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p><span class="suite">En savoir plus →</span></a>
+      ))}
+      <a class="carte" href="/professionnels/">
+        <h3>Locaux professionnels et copropriétés</h3>
+        <p>Micro-crèches, commerces, bureaux et petits immeubles, avec une organisation qui laisse votre activité continuer.</p>
+        <span class="suite">En savoir plus →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="apropos" id="chantiers">
+  <div class="wrap">
+    <h2>Chantiers récents</h2>
+    <Chantiers liste={recents} />
+    <p>
+      {recents.length > 0 && <><a href="/chantiers/">Tous les chantiers</a> · </>}
+      Sur Instagram : <a href={E.instagram}>{E.instagramNom}</a>
+    </p>
+  </div>
+</section>
+
+<section id="artisan">
+  <div class="wrap prose">
+    <h2>Un artisan, un interlocuteur</h2>
+    <p>Je m'appelle Kévin Marianelli. Après plusieurs années en entreprise sur des Monuments Historiques, j'ai créé Odyssée Travaux en 2022 pour travailler à mon compte, avec le même soin sur une maison du Nord que sur un bâtiment classé.</p>
+    <p>C'est moi qui viens voir votre toit, qui fais le devis et qui suis sur le chantier. Vous savez à qui vous parlez, du premier appel à la réception.</p>
+  </div>
+</section>
+
+<section class="apropos" id="deroulement">
+  <div class="wrap">
+    <h2>Comment ça se passe</h2>
+    <ol class="etapes">
+      <li><strong>Vous m'appelez</strong>ou vous m'envoyez une photo du problème par SMS ou e-mail.</li>
+      <li><strong>Je viens voir</strong>le toit, je cherche la cause et je vous explique ce que je vois.</li>
+      <li><strong>Devis gratuit</strong>écrit et détaillé, valable 30 jours. Rien n'est commencé sans votre accord signé.</li>
+      <li><strong>Chantier</strong>à la date prévue, après un acompte de 40 %. Je vous préviens si la météo oblige à décaler.</li>
+      <li><strong>Réception</strong>ensemble, avec un procès-verbal. Le solde est payable sous 30 jours.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="faq" id="questions">
+  <div class="wrap">
+    <h2>Questions fréquentes</h2>
+    <details>
+      <summary>J'ai une fuite, que faire en attendant ?</summary>
+      <p>Appelez-moi ou envoyez une photo. Si l'eau menace l'intérieur, je peux poser une protection provisoire avant la réparation. Elle est signalée et chiffrée à part. <a href="/fuite-toiture/">Plus de détails sur les fuites</a>.</p>
+    </details>
+    <details>
+      <summary>Combien ça coûte ?</summary>
+      <p>Chaque type d'intervention a un prix fixe : deux clients pour le même travail paient le même prix. Le montant exact dépend de votre toit et figure sur le devis écrit, avant tout engagement. Le devis est gratuit.</p>
+    </details>
+    <details>
+      <summary>Puis-je bénéficier d'une TVA réduite ?</summary>
+      <p>Oui, si le logement est achevé depuis plus de deux ans et sert d'habitation, selon la nature des travaux. Vous le certifiez sur le devis, et je vous indique le taux qui s'applique.</p>
+    </details>
+    <details>
+      <summary>Que se passe-t-il s'il pleut ou s'il y a du vent ?</summary>
+      <p>On ne travaille pas sur un toit mouillé, gelé ou par grand vent : c'est dangereux et le résultat serait moins bon. Le chantier est décalé et vous êtes prévenu au plus tôt.</p>
+    </details>
+    <details>
+      <summary>Quelles garanties ai-je ?</summary>
+      <p>La garantie de parfait achèvement (1 an), la garantie de bon fonctionnement (2 ans) et la garantie décennale (10 ans), assurée chez Groupama Nord Est. Les fenêtres de toit Velux ont en plus la garantie du fabricant. L'attestation d'assurance est jointe au devis.</p>
+    </details>
+    <details>
+      <summary>Comment payer ?</summary>
+      <p>Acompte de 40 % à la signature, situations selon l'avancement pour les gros chantiers, solde à la réception sous 30 jours. Par virement ou par chèque.</p>
+    </details>
+  </div>
+</section>
+
+<section class="apropos" id="zone">
+  <div class="wrap">
+    <h2>Où j'interviens</h2>
+    <p>Basé à Wasquehal, avec un atelier à Roubaix, j'interviens dans un rayon d'environ 40 km, d'abord dans la métropole lilloise :</p>
+    <ul class="villes">{villes.map((v) => <li>{v}</li>)}</ul>
+  </div>
+</section>
+</Base>

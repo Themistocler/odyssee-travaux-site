@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { E } from '../data/entreprise.js';
+---
+<Base title="Mentions légales | Odyssée Travaux" description="Mentions légales et données personnelles du site d'Odyssée Travaux, couvreur-zingueur à Wasquehal.">
+  <meta slot="head" name="robots" content="noindex">
+  <section>
+    <div class="wrap prose">
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>{E.nom}, SARL à associé unique au capital de 1 314 €<br>
+      Siège : {E.rue}, {E.cp} {E.ville}<br>
+      {E.rcs}, SIRET {E.siret}<br>
+      TVA intracommunautaire {E.tva}, APE {E.ape}<br>
+      Directeur de la publication : Kévin Marianelli, gérant<br>
+      Contact : <a href={`mailto:${E.email}`}>{E.email}</a>, <a href={`tel:${E.telHref}`}>{E.tel}</a></p>
+
+      <h2>Hébergeur</h2>
+      <p>GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. <a href="https://github.com">github.com</a></p>
+
+      <h2>Assurance professionnelle</h2>
+      <p>Responsabilité civile décennale : {E.decennale}, {E.decennaleAdresse}. Couverture géographique : France métropolitaine et outre-mer. Activités : {E.activites}.</p>
+
+      <h2>Médiation de la consommation</h2>
+      <p>Après une réclamation écrite restée sans réponse satisfaisante, le client particulier peut saisir gratuitement le médiateur de la consommation de la CAPEB : CAPEB Nord, <a href="mailto:capeb-nord@capeb.info">capeb-nord@capeb.info</a>.</p>
+
+      <h2>Données personnelles</h2>
+      <p>Ce site ne dépose aucun cookie et ne contient ni formulaire ni outil de mesure d'audience. Les informations que vous envoyez par téléphone, SMS ou e-mail servent uniquement à répondre à votre demande et à établir un devis. Elles ne sont ni vendues ni transmises à des tiers. Si un devis est signé, elles sont conservées pendant la durée légale (garanties, comptabilité).</p>
+      <p>Vous pouvez demander l'accès, la rectification ou l'effacement de vos données en écrivant à <a href={`mailto:${E.email}`}>{E.email}</a>. En cas de difficulté, vous pouvez saisir la CNIL (cnil.fr).</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes, photos et le logo de ce site appartiennent à {E.nom}. Toute reproduction sans accord écrit est interdite.</p>
+    </div>
+  </section>
+</Base>

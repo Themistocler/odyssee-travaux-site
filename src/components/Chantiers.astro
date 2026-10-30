@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+
+const { liste, vide = 'Les premiers chantiers arrivent bientôt.' } = Astro.props;
+const date = (d) => d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+---
+{liste.length === 0 ? (
+  <p class="vide">{vide} En attendant, les chantiers récents sont en photos sur Instagram.</p>
+) : (
+  <div class="cartes-chantier">
+    {liste.map((c) => {
+      const photo = c.data.photos.find((p) => p.moment === 'apres') ?? c.data.photos[0];
+      return (
+        <a href={`/chantiers/${c.id}/`}>
+          {photo && <Image src={photo.src} alt={photo.legende} widths={[400, 800]} sizes="(max-width: 600px) 100vw, 340px" />}
+          <div>
+            <h3>{c.data.titre}</h3>
+            <small>{c.data.ville} · {date(c.data.date)}</small>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+)}

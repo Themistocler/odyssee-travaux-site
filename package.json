@@ -1,0 +1,15 @@
+{
+  "name": "odyssee-travaux-site",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && cd dist && git init -q -b gh-pages && git add -A && git -c user.name='Kévin Marianelli' -c user.email=contact@odyssee-travaux.fr commit -qm \"Mise en ligne $(date '+%Y-%m-%d %H:%M')\" && git push -qf \"$(git -C .. remote get-url origin)\" gh-pages && rm -rf .git"
+  },
+  "type": "module",
+  "dependencies": {
+    "astro": "^7.4.4"
+  },
+  "private": true
+}
