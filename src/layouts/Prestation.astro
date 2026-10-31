@@ -17,7 +17,7 @@ const autres = prestations.filter((p) => p.slug !== slug);
       <p>{f.intro}</p>
       <div class="ctas">
         <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
-        <a class="btn btn-ligne" href={mailDevis}>Demander un devis gratuit</a>
+        <a class="btn btn-ligne" href={mailDevis}>Demander un devis</a>
       </div>
     </div>
   </div>
@@ -38,11 +38,11 @@ const autres = prestations.filter((p) => p.slug !== slug);
   <section>
     <div class="wrap">
       <h2>Autres prestations</h2>
-      <div class="grille">
+      <ul class="liste-prestations">
         {autres.map((p) => (
-          <a class="carte" href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p><span class="suite">En savoir plus →</span></a>
+          <li><a href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p></a></li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 </Base>

@@ -7,13 +7,13 @@ import { E, villes, prestations, mailDevis } from '../data/entreprise.js';
 const recents = (await chantiersPublies()).slice(0, 6);
 ---
 <Base
-  title="Couvreur zingueur à Roubaix et Wasquehal | Odyssée Travaux"
+  title="Couvreur zingueur à Wasquehal et Roubaix | Odyssée Travaux"
   description="Couvreur-zingueur à Wasquehal, Roubaix et dans la métropole lilloise : fuite de toiture, gouttières et zinc, Velux, couverture. Décennale, devis gratuit.">
 
 <section class="hero">
   <div class="wrap">
-    <h1>Couvreur-zingueur à Roubaix, Wasquehal et dans la métropole lilloise</h1>
-    <p>Fuite, gouttière, Velux ou toiture à refaire : un artisan formé sur les Monuments Historiques vient voir votre toit et vous remet un devis gratuit, écrit et détaillé.</p>
+    <h1>Couvreur-zingueur à Wasquehal</h1>
+    <p>Fuite, gouttière, Velux ou toiture dans toute la métropole lilloise. Devis gratuit et écrit, par un artisan formé aux Monuments Historiques.</p>
     <div class="ctas">
       <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
       <a class="btn btn-ligne" href={mailDevis}>Demander un devis</a>
@@ -36,16 +36,15 @@ const recents = (await chantiersPublies()).slice(0, 6);
 <section id="prestations">
   <div class="wrap">
     <h2>Ce que je fais pour vous</h2>
-    <div class="grille">
+    <ul class="liste-prestations">
       {prestations.map((p) => (
-        <a class="carte" href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p><span class="suite">En savoir plus →</span></a>
+        <li><a href={`/${p.slug}/`}><h3>{p.titre}</h3><p>{p.accroche}</p></a></li>
       ))}
-      <a class="carte" href="/professionnels/">
+      <li><a href="/professionnels/">
         <h3>Locaux professionnels et copropriétés</h3>
         <p>Micro-crèches, commerces, bureaux et petits immeubles, avec une organisation qui laisse votre activité continuer.</p>
-        <span class="suite">En savoir plus →</span>
-      </a>
-    </div>
+      </a></li>
+    </ul>
   </div>
 </section>
 

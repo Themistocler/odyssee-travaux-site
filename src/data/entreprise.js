@@ -21,7 +21,7 @@ export const E = {
 };
 
 export const villes = [
-  'Roubaix', 'Wasquehal', 'Croix', 'Tourcoing', 'Marcq-en-Barœul', 'Mouvaux', "Villeneuve-d'Ascq",
+  'Wasquehal', 'Roubaix', 'Croix', 'Tourcoing', 'Marcq-en-Barœul', 'Mouvaux', "Villeneuve-d'Ascq",
   'Lille', 'Wattrelos', 'Hem', 'Lys-lez-Lannoy', 'La Madeleine', 'Marquette-lez-Lille', 'Bondues',
 ];
 
