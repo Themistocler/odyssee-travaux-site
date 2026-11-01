@@ -14,7 +14,7 @@ Site statique (Astro) pour odyssee-travaux.fr. Hors du Bureau exprès : le Burea
 
 ## Ajouter un chantier
 1. Copier `src/content/chantiers/_modele/` en `src/content/chantiers/AAAA-MM-travaux-ville/`.
-2. Y mettre les photos (jpg ou heic converti en jpg), les déclarer dans `index.md` avec une légende.
+2. Y mettre les photos (jpg ou heic converti en jpg), les déclarer dans `index.md` avec une légende. **Sans position GPS** : le dépôt est public et la position d'une photo d'iPhone donne l'adresse du client. Sur l'iPhone, Partager › Options › décocher « Lieu » ; sur le Mac, Photos › Fichier › Exporter, décocher « Informations de lieu ». La photothèque garde ses positions.
 3. Remplir titre, ville, date, prestation, résumé et le texte, puis `brouillon: false`.
 4. `npm run build` : la page, la carte sur l'accueil, la page prestation et le plan du site se mettent à jour seuls.
 
