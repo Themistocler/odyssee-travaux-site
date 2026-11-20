@@ -91,6 +91,16 @@ ol.etapes strong{display:block;color:var(--marine)}
 .carte figcaption{font-size:.9rem;color:var(--doux);margin-top:8px}
 .cookies{position:fixed;left:12px;right:12px;bottom:12px;max-width:560px;margin:0 auto;z-index:20;background:var(--marine);color:var(--blanc);padding:16px 18px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
 .cookies[hidden]{display:none}.cookies p{margin:0 0 12px}.cookies button{font-family:inherit;font-size:inherit;border:0;cursor:pointer}.cookies .btn-ligne{background:none;border:2px solid currentColor}
+.devis{max-width:560px}.devis [hidden]{display:none!important}.devis fieldset{border:0;margin:0;padding:0;min-width:0}.devis legend{padding:0;margin-bottom:12px}
+.devis h2{font-size:1.5rem;margin:0}.devis h2:focus{outline:none}.etape-num{color:var(--doux);font-size:.9rem;margin:0 0 6px}
+.choix{display:grid;gap:10px}.choix label{display:flex;gap:12px;align-items:center;background:var(--blanc);border:1px solid var(--bord);border-radius:10px;padding:14px 16px;cursor:pointer;font-weight:600}
+.choix label:has(:checked){border-color:var(--marine);box-shadow:0 0 0 2px var(--marine)}.choix input{width:20px;height:20px;accent-color:var(--marine)}
+.devis label:not(.choix label){display:block;font-weight:600;margin-bottom:14px}
+.devis input:not([type=radio]),.devis textarea{display:block;width:100%;margin-top:6px;font:inherit;padding:12px;border:1px solid var(--bord);border-radius:8px;background:var(--blanc)}
+.nav-devis{display:flex;gap:12px;margin-top:18px}.devis button{font:inherit;font-weight:700;cursor:pointer;background:none}.devis .btn-or{border:0;background:var(--or)}
+.devis .btn-ligne{color:var(--marine)}.erreur{color:#a23b3b;font-weight:600;min-height:1.4em;margin:8px 0 0}
+.recap{white-space:pre-wrap;font:inherit;background:var(--blanc);border:1px solid var(--bord);border-radius:10px;padding:14px 16px}
+.devis.tactile .sur-ordi,.devis.ordi .sur-tel{display:none}.petit{font-size:.9rem;color:var(--doux)}
 /* Contact et pied de page */
 .contact{background:var(--marine);color:var(--blanc);text-align:center}
 .contact h2{color:var(--blanc)}

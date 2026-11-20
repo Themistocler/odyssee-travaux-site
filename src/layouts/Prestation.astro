@@ -3,7 +3,7 @@ import Base from './Base.astro';
 import Chantiers from '../components/Chantiers.astro';
 import Fil from '../components/Fil.astro';
 import { chantiersPublies } from '../data/chantiers.js';
-import { E, prestations, mailDevis } from '../data/entreprise.js';
+import { E, prestations } from '../data/entreprise.js';
 
 const { frontmatter: f } = Astro.props;
 const slug = Astro.url.pathname.replaceAll('/', '');
@@ -19,7 +19,7 @@ const autres = prestations.filter((p) => p.slug !== slug);
       <p>{f.intro}</p>
       <div class="ctas">
         <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
-        <a class="btn btn-ligne" href={mailDevis}>Demander un devis</a>
+        <a class="btn btn-ligne" href="/devis/">Formulaire de devis</a>
       </div>
     </div>
   </div>

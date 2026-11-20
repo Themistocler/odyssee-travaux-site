@@ -40,7 +40,3 @@ export const prestations = [
   { slug: 'entretien-toiture', titre: 'Entretien de toiture',
     accroche: 'Pour éviter la fuite plutôt que la réparer, surtout après la chute des feuilles.' },
 ];
-
-export const mailDevis = `mailto:${E.email}?subject=${encodeURIComponent('Demande de devis toiture')}&body=${encodeURIComponent(
-  'Ville : \nType de travaux (fuite, gouttière, Velux, toiture...) : \nDescription : \nTéléphone : \n\n(Ajoutez 1 ou 2 photos en pièce jointe)'
-)}`;

@@ -3,7 +3,7 @@ import { prestations } from '../data/entreprise.js';
 
 export async function GET({ site }) {
   const chemins = [
-    '/', '/chantiers/', '/professionnels/',
+    '/', '/chantiers/', '/professionnels/', '/devis/',
     ...prestations.map((p) => `/${p.slug}/`),
     ...(await chantiersPublies()).map((c) => `/chantiers/${c.id}/`),
   ];

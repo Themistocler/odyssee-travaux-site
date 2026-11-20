@@ -1,0 +1,132 @@
+---
+// Formulaire de devis en 3 questions, une par écran. Rien n'est envoyé à un serveur : à la fin, le téléphone du visiteur
+// ouvre un SMS déjà rempli vers Kévin (un e-mail sur ordinateur). Les réponses ne sont gardées nulle part.
+import Base from '../layouts/Base.astro';
+import Fil from '../components/Fil.astro';
+import { E, villes, prestations } from '../data/entreprise.js';
+---
+<Base title="Formulaire de devis | Odyssée Travaux"
+  description="Demandez un devis de toiture à Odyssée Travaux en trois questions : vos travaux, votre ville, votre numéro. Réponse pour fixer une visite, devis gratuit et écrit.">
+  <div class="bandeau">
+    <div class="wrap">
+      <Fil etapes={[['Accueil', '/'], ['Formulaire de devis', '/devis/']]} />
+      <h1>Formulaire de devis</h1>
+      <p>Trois questions, moins d'une minute. Je vous rappelle pour fixer une visite ; le devis est gratuit et écrit.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <form class="devis" id="devis" novalidate>
+        <p class="etape-num" aria-live="polite">Question <span>1</span> sur 3</p>
+
+        <fieldset data-etape="1">
+          <legend><h2 tabindex="-1">Vous avez besoin de quoi ?</h2></legend>
+          <div class="choix">
+            {prestations.map((p) => (
+              <label><input type="radio" name="besoin" value={p.titre} required> <span>{p.titre}</span></label>
+            ))}
+            <label><input type="radio" name="besoin" value="Autre chose"> <span>Autre chose</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset data-etape="2" hidden>
+          <legend><h2 tabindex="-1">Où sont les travaux ?</h2></legend>
+          <label>Ville<input name="ville" list="villes" autocomplete="address-level2" required></label>
+          <datalist id="villes">{villes.map((v) => <option value={v} />)}</datalist>
+          <label>En deux mots (facultatif)<textarea name="details" rows="3" maxlength="400" placeholder="Ex. : tache au plafond de la chambre depuis la tempête"></textarea></label>
+        </fieldset>
+
+        <fieldset data-etape="3" hidden>
+          <legend><h2 tabindex="-1">À quel numéro je vous rappelle ?</h2></legend>
+          <label>Prénom<input name="prenom" autocomplete="given-name" required maxlength="40"></label>
+          <label>Téléphone<input name="tel" type="tel" autocomplete="tel" inputmode="tel" required></label>
+        </fieldset>
+
+        <div data-etape="4" hidden>
+          <h2 tabindex="-1">Votre demande est prête</h2>
+          <pre class="recap"></pre>
+          <p class="sur-tel">Appuyez sur le bouton : votre messagerie s'ouvre avec la demande déjà écrite. Il ne reste qu'à envoyer. Vous pouvez y ajouter une photo.</p>
+          <p class="sur-ordi">Le bouton ouvre votre messagerie avec la demande déjà écrite. Si rien ne s'ouvre, copiez la demande et envoyez-la à <a href={`mailto:${E.email}`}>{E.email}</a>, ou appelez le <a href={`tel:${E.telHref}`}>{E.tel}</a>.</p>
+          <div class="ctas">
+            <a class="btn btn-or sur-tel" data-sms>Envoyer par SMS</a>
+            <a class="btn btn-or sur-ordi" data-mail>Envoyer par e-mail</a>
+            <button type="button" class="btn btn-ligne sur-ordi" data-copier>Copier la demande</button>
+          </div>
+          <p class="sur-tel petit">Pas de SMS ? <a data-mail>Envoyer par e-mail</a></p>
+        </div>
+
+        <p class="erreur" role="alert"></p>
+        <div class="nav-devis">
+          <button type="button" class="btn btn-ligne" data-retour hidden>Retour</button>
+          <button type="submit" class="btn btn-or" data-suivant>Suivant</button>
+        </div>
+      </form>
+      <noscript><p>Ce formulaire a besoin de JavaScript. Appelez le <a href={`tel:${E.telHref}`}>{E.tel}</a> ou écrivez à <a href={`mailto:${E.email}`}>{E.email}</a>.</p></noscript>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ tel: E.telHref, email: E.email }}>
+    const f = document.getElementById('devis');
+    const blocs = [...f.querySelectorAll('[data-etape]')];
+    const suivant = f.querySelector('[data-suivant]'), retour = f.querySelector('[data-retour]');
+    const num = f.querySelector('.etape-num'), erreur = f.querySelector('.erreur');
+    const tactile = matchMedia('(pointer: coarse)').matches;
+    f.classList.add(tactile ? 'tactile' : 'ordi');
+    let i = 0;
+
+    const montrer = (n) => {
+      i = n;
+      blocs.forEach((b, k) => { b.hidden = k !== n; });
+      num.hidden = n === 3;
+      num.querySelector('span').textContent = n + 1;
+      retour.hidden = n === 0;
+      suivant.hidden = n === 3;
+      suivant.textContent = n === 2 ? 'Voir ma demande' : 'Suivant';
+      erreur.textContent = '';
+      blocs[n].querySelector('h2').focus();
+    };
+
+    const valide = () => {
+      const d = new FormData(f);
+      if (i === 0 && !d.get('besoin')) return 'Choisissez un type de travaux.';
+      if (i === 1 && !String(d.get('ville')).trim()) return 'Indiquez la ville.';
+      if (i === 2) {
+        if (!String(d.get('prenom')).trim()) return 'Indiquez votre prénom.';
+        if (String(d.get('tel')).replace(/\D/g, '').length < 10) return 'Indiquez un numéro de téléphone complet.';
+      }
+      return '';
+    };
+
+    const message = () => {
+      const d = new FormData(f);
+      return ['Demande de devis (site Odyssée Travaux)',
+        'Travaux : ' + d.get('besoin'),
+        'Ville : ' + String(d.get('ville')).trim(),
+        String(d.get('details')).trim() ? 'Détails : ' + String(d.get('details')).trim() : '',
+        'Prénom : ' + String(d.get('prenom')).trim(),
+        'Téléphone : ' + String(d.get('tel')).trim()].filter(Boolean).join('\n');
+    };
+
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const err = valide();
+      if (err) { erreur.textContent = err; return; }
+      if (i === 2) {
+        const m = message();
+        f.querySelector('.recap').textContent = m;
+        f.querySelector('[data-sms]').href = 'sms:' + tel + '?&body=' + encodeURIComponent(m);
+        f.querySelectorAll('[data-mail]').forEach((a) => {
+          a.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Demande de devis toiture') + '&body=' + encodeURIComponent(m);
+        });
+      }
+      montrer(i + 1);
+    });
+    retour.addEventListener('click', () => montrer(i - 1));
+    f.querySelector('[data-copier]').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(message()).then(() => { e.target.textContent = 'Demande copiée'; });
+    });
+    // un choix de travaux fait passer directement à la question suivante
+    f.querySelectorAll('[name=besoin]').forEach((r) => r.addEventListener('change', () => f.requestSubmit()));
+  </script>
+</Base>

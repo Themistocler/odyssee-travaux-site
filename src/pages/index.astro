@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Chantiers from '../components/Chantiers.astro';
 import { chantiersPublies } from '../data/chantiers.js';
-import { E, villes, prestations, mailDevis } from '../data/entreprise.js';
+import { E, villes, prestations } from '../data/entreprise.js';
 
 const recents = (await chantiersPublies()).slice(0, 6);
 ---
@@ -16,9 +16,9 @@ const recents = (await chantiersPublies()).slice(0, 6);
     <p>Fuite, gouttière, Velux ou toiture dans toute la métropole lilloise. Devis gratuit et écrit, par un artisan formé aux Monuments Historiques.</p>
     <div class="ctas">
       <a class="btn btn-or" href={`tel:${E.telHref}`}>Appeler le {E.tel}</a>
-      <a class="btn btn-ligne" href={mailDevis}>Demander un devis</a>
+      <a class="btn btn-ligne" href="/devis/">Formulaire de devis</a>
     </div>
-    <p class="horaires">{E.horaires}. Envoyez une photo du problème, c'est souvent le plus rapide.</p>
+    <p class="horaires">{E.horaires}.</p>
   </div>
 </section>
 
@@ -71,7 +71,7 @@ const recents = (await chantiersPublies()).slice(0, 6);
   <div class="wrap">
     <h2>Comment ça se passe</h2>
     <ol class="etapes">
-      <li><strong>Vous m'appelez</strong>ou vous m'envoyez une photo du problème par SMS ou e-mail.</li>
+      <li><strong>Vous m'appelez</strong>ou vous remplissez le formulaire de devis en trois questions.</li>
       <li><strong>Je viens voir</strong>le toit, je cherche la cause et je vous explique ce que je vois.</li>
       <li><strong>Devis gratuit</strong>écrit et détaillé, valable 30 jours. Rien n'est commencé sans votre accord signé.</li>
       <li><strong>Chantier</strong>à la date prévue, après un acompte de 40 %. Je vous préviens si la météo oblige à décaler.</li>
