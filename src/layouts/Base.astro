@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { E, villes, mailDevis } from '../data/entreprise.js';
+import Cookies from '../components/Cookies.astro';
 
 const { title, description, image = '/img/icone.png' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -74,8 +75,9 @@ const jsonld = {
   <div class="wrap">
     <p><strong>{E.nom}</strong>, {E.forme}, {E.rue}, {E.cp} {E.ville}. {E.rcs}, SIRET {E.siret}.</p>
     <p>Assurance décennale {E.decennale} : couverture, zinguerie, châssis de toit, isolation. Adhérent CAPEB Nord.</p>
-    <p><a href="/mentions-legales/">Mentions légales et données personnelles</a> · <a href={`mailto:${E.email}`}>{E.email}</a> · <a href={E.instagram}>Instagram</a></p>
+    <p><a href="/mentions-legales/">Mentions légales et données personnelles</a>{E.ga && <Fragment> · <a href="#cookies" data-cookies>Cookies</a></Fragment>} · <a href={`mailto:${E.email}`}>{E.email}</a> · <a href={E.instagram}>Instagram</a></p>
   </div>
 </footer>
+<Cookies />
 </body>
 </html>

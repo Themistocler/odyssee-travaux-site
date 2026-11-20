@@ -17,6 +17,8 @@ export const E = {
   ape: '4391B',
   decennale: 'Groupama Nord Est, contrat n° 168122760001',
   decennaleAdresse: '2 rue Léon Patoux, 51686 Reims Cedex 2',
+  // Identifiant Google Analytics (« G-… ») : vide = pas de mesure ni de bandeau cookies
+  ga: '',
   activites: 'couverture, zinguerie, pose de châssis de toit, isolation et écran sous toiture',
 };
 

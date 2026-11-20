@@ -1,0 +1,40 @@
+---
+// Mesure d'audience Google Analytics, chargée seulement après « Accepter » (règles de la CNIL :
+// refuser aussi simple qu'accepter, choix gardé 13 mois, modifiable par le lien « Cookies » du pied de page).
+import { E } from '../data/entreprise.js';
+---
+{E.ga && (
+  <Fragment>
+    <div id="cookies" class="cookies" role="dialog" aria-label="Cookies" hidden>
+      <p>J'aimerais compter les visites du site avec Google Analytics, qui dépose des cookies. Vous êtes d'accord ?</p>
+      <div class="ctas">
+        <button type="button" class="btn btn-or" data-choix="oui">Accepter</button>
+        <button type="button" class="btn btn-ligne" data-choix="non">Refuser</button>
+      </div>
+    </div>
+    <script is:inline define:vars={{ id: E.ga }}>
+      const cle = 'cookies-odyssee', boite = document.getElementById('cookies');
+      const lire = () => { try { const v = JSON.parse(localStorage.getItem(cle)); return v && Date.now() - v.t < 395 * 864e5 ? v.choix : null; } catch (e) { return null; } };
+      const mesurer = () => {
+        const s = document.createElement('script');
+        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date()); gtag('config', id);
+      };
+      const effacer = () => document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => n.startsWith('_ga'))
+        .forEach((n) => { document.cookie = n + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, ''); document.cookie = n + '=; Max-Age=0; path=/'; });
+      const choix = lire();
+      if (choix === 'oui') mesurer(); else if (!choix) boite.hidden = false;
+      boite.addEventListener('click', (e) => {
+        const v = e.target.dataset && e.target.dataset.choix;
+        if (!v) return;
+        try { localStorage.setItem(cle, JSON.stringify({ choix: v, t: Date.now() })); } catch (err) {}
+        boite.hidden = true;
+        if (v === 'oui') { if (!window.gtag) mesurer(); } else effacer();
+      });
+      document.querySelectorAll('[data-cookies]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); boite.hidden = false; }));
+    </script>
+  </Fragment>
+)}

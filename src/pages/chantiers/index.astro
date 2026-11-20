@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Chantiers from '../../components/Chantiers.astro';
+import Fil from '../../components/Fil.astro';
 import { chantiersPublies } from '../../data/chantiers.js';
 import { E } from '../../data/entreprise.js';
 
@@ -11,7 +12,7 @@ const liste = await chantiersPublies();
   description="Chantiers réalisés par Odyssée Travaux à Roubaix, Wasquehal et dans la métropole lilloise : fuites, gouttières et chéneaux en zinc, Velux, couvertures. Photos.">
   <div class="bandeau">
     <div class="wrap">
-      <p class="fil"><a href="/">Accueil</a></p>
+      <Fil etapes={[['Accueil', '/'], ['Chantiers', '/chantiers/']]} />
       <h1>Chantiers réalisés</h1>
       <p>Des chantiers récents, en photos, avant et après. Les adresses ne sont jamais publiées, seulement la ville.</p>
     </div>

@@ -115,6 +115,11 @@ const recents = (await chantiersPublies()).slice(0, 6);
     <h2>Où j'interviens</h2>
     <p>Basé à Wasquehal, avec un atelier à Roubaix, j'interviens dans un rayon d'environ 40 km, d'abord dans la métropole lilloise :</p>
     <ul class="villes">{villes.map((v) => <li>{v}</li>)}</ul>
+    <figure class="carte">
+      <img src="/img/zone-intervention.jpg" width="1100" height="976" loading="lazy"
+        alt="Carte de la métropole lilloise avec Odyssée Travaux à Wasquehal, entre Roubaix, Tourcoing, Marcq-en-Barœul, Lille et Villeneuve-d'Ascq">
+      <figcaption>Siège : {E.rue}, {E.cp} {E.ville}. <a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${E.rue}, ${E.cp} ${E.ville}`)}`}>Itinéraire</a> · Fond de carte © contributeurs OpenStreetMap</figcaption>
+    </figure>
   </div>
 </section>
 </Base>

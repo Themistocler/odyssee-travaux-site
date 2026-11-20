@@ -1,18 +1,20 @@
 ---
 import Base from './Base.astro';
 import Chantiers from '../components/Chantiers.astro';
+import Fil from '../components/Fil.astro';
 import { chantiersPublies } from '../data/chantiers.js';
 import { E, prestations, mailDevis } from '../data/entreprise.js';
 
 const { frontmatter: f } = Astro.props;
 const slug = Astro.url.pathname.replaceAll('/', '');
 const lies = await chantiersPublies((c) => c.data.prestation === slug);
+const ici = prestations.find((p) => p.slug === slug);
 const autres = prestations.filter((p) => p.slug !== slug);
 ---
 <Base title={f.title} description={f.description}>
   <div class="bandeau">
     <div class="wrap">
-      <p class="fil"><a href="/">Accueil</a> › <a href="/#prestations">Prestations</a></p>
+      <Fil etapes={[['Accueil', '/'], ['Prestations', '/#prestations'], [ici ? ici.titre : f.h1, Astro.url.pathname]]} />
       <h1>{f.h1}</h1>
       <p>{f.intro}</p>
       <div class="ctas">

@@ -66,7 +66,7 @@ ol.etapes strong{display:block;color:var(--marine)}
 .bandeau{background:linear-gradient(160deg,var(--marine),var(--marine-2));color:#dfe6ee;padding:40px 0 44px}
 .bandeau h1{color:var(--blanc);font-size:clamp(1.8rem,5vw,2.6rem);margin:.2em 0 .3em;max-width:24ch}
 .bandeau p{max-width:60ch;margin:0 0 1.2em;font-size:1.1rem}
-.fil{font-size:.9rem}
+.fil{font-size:.9rem;margin:0 0 .6em}.fil [aria-current]{color:#dfe6ee}
 .fil a{color:#b9c6d4}
 .prose > *{max-width:72ch}
 .prose h2{font-size:1.5rem;margin:1.6em 0 .5em}
@@ -87,6 +87,10 @@ ol.etapes strong{display:block;color:var(--marine)}
 .galerie .moment{display:inline-block;background:var(--marine);color:var(--or);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:4px;margin-right:6px}
 .vide{background:var(--blanc);border:1px dashed var(--bord);border-radius:12px;padding:24px;color:var(--doux)}
 
+.carte{margin:24px 0 0}.carte img{width:100%;max-width:760px;border:1px solid var(--bord);border-radius:12px}
+.carte figcaption{font-size:.9rem;color:var(--doux);margin-top:8px}
+.cookies{position:fixed;left:12px;right:12px;bottom:12px;max-width:560px;margin:0 auto;z-index:20;background:var(--marine);color:var(--blanc);padding:16px 18px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.cookies[hidden]{display:none}.cookies p{margin:0 0 12px}.cookies button{font-family:inherit;font-size:inherit;border:0;cursor:pointer}.cookies .btn-ligne{background:none;border:2px solid currentColor}
 /* Contact et pied de page */
 .contact{background:var(--marine);color:var(--blanc);text-align:center}
 .contact h2{color:var(--blanc)}

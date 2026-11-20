@@ -1,0 +1,15 @@
+---
+// Fil d'Ariane : visible en haut de page et lisible par Google (BreadcrumbList).
+// etapes = [[libellé, adresse], ...] ; la dernière est la page en cours.
+const { etapes } = Astro.props;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: etapes.map(([nom, href], i) => ({ '@type': 'ListItem', position: i + 1, name: nom, item: new URL(href, Astro.site).href })),
+};
+const dernier = etapes.length - 1;
+---
+<nav class="fil" aria-label="Fil d'Ariane">
+  {etapes.map(([nom, href], i) => i < dernier ? <Fragment><a href={href}>{nom}</a> › </Fragment> : <span aria-current="page">{nom}</span>)}
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(ld)}></script>

@@ -26,7 +26,13 @@ import { E } from '../data/entreprise.js';
       <p>Après une réclamation écrite restée sans réponse satisfaisante, le client particulier peut saisir gratuitement le médiateur de la consommation de la CAPEB : CAPEB Nord, <a href="mailto:capeb-nord@capeb.info">capeb-nord@capeb.info</a>.</p>
 
       <h2>Données personnelles</h2>
-      <p>Ce site ne dépose aucun cookie et ne contient ni formulaire ni outil de mesure d'audience. Les informations que vous envoyez par téléphone, SMS ou e-mail servent uniquement à répondre à votre demande et à établir un devis. Elles ne sont ni vendues ni transmises à des tiers. Si un devis est signé, elles sont conservées pendant la durée légale (garanties, comptabilité).</p>
+      {E.ga ? (
+        <p>Le site ne contient aucun formulaire. Avec votre accord seulement, donné dans le bandeau qui s'affiche à la première visite, il mesure sa fréquentation avec Google Analytics (Google Ireland Limited), qui dépose des cookies. Les données sont des statistiques de visite (pages vues, type d'appareil, ville approximative) ; elles servent à améliorer le site et sont gardées 14 mois. Votre choix est conservé 13 mois sur votre appareil ; vous pouvez le changer à tout moment avec le lien « Cookies » en bas de page. Sans accord, rien n'est mesuré.</p>
+      ) : (
+        <p>Ce site ne dépose aucun cookie et ne contient ni formulaire ni outil de mesure d'audience.</p>
+      )}
+      <p>La carte de la page d'accueil est une image hébergée sur ce site (fond de carte © contributeurs OpenStreetMap, licence ODbL) : l'afficher ne transmet rien à un tiers. Le lien « Itinéraire » ouvre Google Maps.</p>
+      <p>Les informations que vous envoyez par téléphone, SMS ou e-mail servent uniquement à répondre à votre demande et à établir un devis. Elles ne sont ni vendues ni transmises à des tiers. Si un devis est signé, elles sont conservées pendant la durée légale (garanties, comptabilité).</p>
       <p>Vous pouvez demander l'accès, la rectification ou l'effacement de vos données en écrivant à <a href={`mailto:${E.email}`}>{E.email}</a>. En cas de difficulté, vous pouvez saisir la CNIL (cnil.fr).</p>
 
       <h2>Propriété intellectuelle</h2>
